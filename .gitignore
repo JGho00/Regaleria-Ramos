@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.pyc
+
+# Entorno virtual
+venv/
+
+# Django
+db.sqlite3
+*/migrations/__pycache__/
+
+# Archivos temporales
+*.log
+*.env
+.env
