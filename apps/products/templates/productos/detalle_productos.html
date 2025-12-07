@@ -1,15 +1,104 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>{{ producto.nombre }}</title>
-</head>
-<body>
-    <h1>{{ producto.nombre }}</h1>
+{% extends "base.html" %}
 
-    <p><strong>Precio:</strong> ${{ producto.precio }}</p>
-    <p><strong>Descripción:</strong> {{ producto.descripcion }}</p>
-    <p><strong>Categoría:</strong> {{ producto.categoria }}</p>
+{% block titulo %}{{ producto.nombre }} - Sistema de Inventario{% endblock %}
 
-    <a href="{% url 'listado_productos' %}">Volver al listado</a>
-</body>
-</html>
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="mb-3">
+            <a href="{% url 'listado_productos'%}" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i> Volver a Productos
+            </a>
+        </div>
+
+        <div class="card">
+            <div class="card-body p-5">
+                <div class="d-flex justify-content-between align-items-start mb-4">
+                    <div>
+                        <h1 class="display-5 mb-2">{{ producto.nombre }}</h1>
+                        {% if producto.categoria %}
+                        <span class="badge bg-secondary fs-6">{{ producto.categoria }}</span>
+                        {% endif %}
+                    </div>
+                    {% if session.rol == 'administrador' %}
+                    <div class="btn-group">
+                        <a href="{{ url_for('editar_producto', id=producto.id) }}" 
+                           class="btn btn-warning">
+                            <i class="bi bi-pencil"></i> Editar
+                        </a>
+                        <button type="button" class="btn btn-danger" 
+                                onclick="confirmarEliminacion()">
+                            <i class="bi bi-trash"></i> Eliminar
+                        </button>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <hr>
+
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <h3 class="text-primary mb-3">
+                            ${{ "%.2f"|format(producto.precio) }}
+                        </h3>
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <h5 class="mb-2">Stock Disponible</h5>
+                        <p class="display-6">
+                            <i class="bi bi-box"></i> {{ producto.cantidad }}
+                            <small class="text-muted">unidades</small>
+                        </p>
+                    </div>
+                </div>
+
+                {% if producto.descripcion %}
+                <div class="mt-4">
+                    <h5 class="mb-3">
+                        <i class="bi bi-info-circle"></i> Descripción
+                    </h5>
+                    <p class="lead">{{ producto.descripcion }}</p>
+                </div>
+                {% endif %}
+
+                <div class="mt-5 p-4 bg-light rounded">
+                    <h6 class="text-muted mb-3">Información del Producto</h6>
+                    <div class="row">
+                        <div class="col-md-6 mb-2">
+                            <strong>ID del Producto:</strong> #{{ producto.id }}
+                        </div>
+                        <div class="col-md-6 mb-2">
+                            <strong>Categoría:</strong> {{ producto.categoria or 'Sin categoría' }}
+                        </div>
+                        <div class="col-md-6 mb-2">
+                            <strong>Precio Unitario:</strong> ${{ "%.2f"|format(producto.precio) }}
+                        </div>
+                        <div class="col-md-6 mb-2">
+                            <strong>Cantidad en Stock:</strong> {{ producto.cantidad }} unidades
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de confirmación para eliminar -->
+<div class="modal fade" id="modalEliminar" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirmar Eliminación</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>¿Estás seguro de que deseas eliminar el producto <strong>{{ producto.nombre }}</strong>?</p>
+                <p class="text-danger"><small>Esta acción no se puede deshacer.</small></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

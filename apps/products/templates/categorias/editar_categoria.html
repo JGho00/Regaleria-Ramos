@@ -1,0 +1,9 @@
+<h1>Editar Categoría</h1>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <input type="text" name="nombre" value="{{ categoria.nombre }}">
+
+    <button type="submit">Guardar cambios</button>
+</form>
