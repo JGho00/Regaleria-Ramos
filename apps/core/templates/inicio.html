@@ -1,0 +1,60 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block titulo %}Inicio - Regalería Ramos{% endblock %}
+
+{% block content %}
+
+
+<!-- Sección de Bienvenida -->
+<div class="mb-5">
+    <h1 class="display-4 fw-bold">Bienvenido <span class="text-primary">Colocar usuario</span></h1>
+    <p class="lead text-muted">Panel de control - Sistema de Inventario</p>
+</div>
+
+<!-- Sección de Cards Informativas -->
+<div class="row g-4">
+    
+    <!-- Card 1: Usuarios -->
+    <div class="col-md-4">
+        <div class="card card-stat h-100 shadow-sm border-0">
+            <div class="card-body text-center">
+                <div class="stat-icon bg-success bg-opacity-10 mb-3">
+                    <i class="bi bi-people-fill text-success fs-1"></i>
+                </div>
+                <h3 class="stat-number fw-bold text-dark mb-2">3</h3>
+                <p class="stat-label text-muted mb-0">Usuarios</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Card 2: Productos Cargados -->
+    <div class="col-md-4">
+        <div class="card card-stat h-100 shadow-sm border-0">
+            <div class="card-body text-center">
+                <div class="stat-icon bg-danger bg-opacity-10 mb-3">
+                    <i class="bi bi-box-seam-fill text-danger fs-1"></i>
+                </div>
+                <h3 class="stat-number fw-bold text-dark mb-2">4</h3>
+                <p class="stat-label text-muted mb-0">Productos Cargados</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Card 3: Categorías -->
+    <div class="col-md-4">
+        <div class="card card-stat h-100 shadow-sm border-0">
+            <div class="card-body text-center">
+                <div class="stat-icon bg-info bg-opacity-10 mb-3">
+                    <i class="bi bi-tags-fill text-info fs-1"></i>
+                </div>
+                <h3 class="stat-number fw-bold text-dark mb-2">2</h3>
+                <p class="stat-label text-muted mb-0">Categorías</p>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+
+{% endblock %}
