@@ -1,13 +1,88 @@
-<h1>Categorías</h1>
+{% extends "index.html" %}
 
-<a href="{% url 'crear_categoria' %}">Crear Categoría</a>
+{% block titulo %}Productos - Sistema de Inventario{% endblock %}
 
-<ul>
-    {% for categoria in categorias %}
-        <li>
-            {{ categoria.nombre }}
-            <a href="{% url 'editar_categoria' categoria.id %}">Editar</a> |
-            <a href="{% url 'eliminar_categoria' categoria.id %}">Eliminar</a>
-        </li>
-    {% endfor %}
-</ul>
+{% load static %}
+
+{% block content %}
+<div class="card mb-4 shine">
+    <div class="card-header">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <h2 class="mb-0">
+                    Listado de Categorias
+                </h2>
+            </div>
+            <div class="col-md-6 text-end">
+                <a href="{% url 'crear_categoria' %}" class="btn btn-warning shine">
+                    <i class="bi bi-plus-circle-fill"></i> Nueva Categoría
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Filtros de búsqueda -->
+<div class="card mb-4">
+    <div class="card-body">
+        <form method="GET" class="row g-3">
+            <div class="col-md-6">
+                <label for="busqueda" class="form-label">Buscar por nombre</label>
+                <input 
+                type="text" class="form-control" id="busqueda" name="busqueda" 
+                placeholder="Escribe el nombre de la categoria..." >
+            </div>
+            <div class="col-md-2 d-flex align-items-end">
+                <button type="submit" class="btn btn-primary w-100">
+                    <i class="bi bi-search"></i> Buscar
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Lista de productos -->
+{% for categoria in categorias%}
+<div class="row g-4">
+    <div class="col-md-6 col-lg-4">
+        <div class="card h-100 producto-card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-start mb-3">
+                    <h5 class="card-title mb-0">{{categoria.nombre}}</h5>
+                </div>
+                                
+                <div class="d-grid gap-2">
+                    <a href="" 
+                       class="btn btn-outline-primary">
+                        <i class="bi bi-eye"></i> Ver productos asociados
+                    </a>
+                    <div class="btn-group">
+                        <a href="" 
+                           class="btn btn-warning">
+                            <i class="bi bi-pencil"></i> Editar
+                        </a>
+                        <a href="{% url 'eliminar_categoria' categoria.id%}" class="btn btn-danger" >
+                            <i class="bi bi-trash"></i> Eliminar
+                        </a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+<div class="card">
+    <div class="card-body text-center p-5">
+        <i class="bi bi-inbox" style="font-size: 4rem; color: #ccc;"></i>
+        <h4 class="mt-3">No se encontraron categorias</h4>
+        <p class="text-muted">No hay categorias que coincidan con tu búsqueda.</p>
+        <a href="{% url 'crear_categoria' %}" class="btn btn-primary mt-3">
+            <i class="bi bi-plus-circle"></i> Agregar tu primera categoría
+        </a>
+    </div>
+</div>
+
+
+
+{% endblock %}

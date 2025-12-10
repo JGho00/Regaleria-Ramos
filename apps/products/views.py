@@ -75,19 +75,11 @@ def detalle_producto(request, producto_id):
 
 
 
-
-
-
-
-
-
-
-
-
 # ===== CRUD CATEGORÍAS =====
 
 def lista_categorias(request):
     categorias = Categoria.objects.all()
+    print(f"Categorias {categorias}")
     return render(request, 'categorias/lista_categorias.html', {
         'categorias': categorias
     })
@@ -116,8 +108,10 @@ def editar_categoria(request, categoria_id):
 
 
 def eliminar_categoria(request, categoria_id):
-    categoria = get_object_or_404(Categoria, id=categoria_id)
+    print(f"Eliminando el id {categoria_id}")
 
+    categoria = get_object_or_404(Categoria, id=categoria_id)
+    print(categoria)
     if request.method == 'POST':
         categoria.delete()
         return redirect('lista_categorias')

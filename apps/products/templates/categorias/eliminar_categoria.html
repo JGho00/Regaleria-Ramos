@@ -1,0 +1,20 @@
+{% extends "index.html" %}
+
+{% block titulo %}Productos - Sistema de Inventario{% endblock %}
+
+{% load static %}
+
+{%block content%}
+
+<h1>Eliminar Categoría</h1>
+
+<p>¿Seguro que querés eliminar "{{ categoria.nombre }}"?</p>
+
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+</form>
+
+<a href="{% url 'lista_categorias' %}" class="btn btn-warning">Cancelar</a>
+
+{%endblock%}
